@@ -71,7 +71,7 @@ engine.setProperty('voice', voices[0].id)
 rate = engine.getProperty('rate')
 engine.setProperty('rate', rate-25)
 
-with open("config.json") as file:
+with open("config/default.json") as file:
   config = json.load(file)
 
 def lookupTone(code):

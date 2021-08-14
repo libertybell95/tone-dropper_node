@@ -10,7 +10,7 @@ import { v4 } from 'uuid'
 import Tone from './Tone'
 import { getTones, dropTones } from '../services/tones'
 
-const ToneQueue = ({ user }) => {
+const ToneQueue = () => {
   const [availableTones, setAvailableTones] = useState([['', 0]])
   const [tones, setTones] = useState([['', 0, v4()]])
   const [message, setMessage] = useState('')
@@ -52,8 +52,7 @@ const ToneQueue = ({ user }) => {
 
   const sendTones = () => {
     const data = {
-      user,
-      tones: tones,
+      tones: tones.map(t => [t[0], t[1]]),
       message: message.trim()
     }
 

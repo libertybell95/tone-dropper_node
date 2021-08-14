@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Link
 } from 'react-router-dom'
 import {
   Navbar,
@@ -10,15 +11,24 @@ import {
   Button
 } from 'react-bootstrap'
 import Cookies from 'js-cookie'
+import jwt from 'jsonwebtoken'
 import ToneQueue from './components/ToneQueue'
 import Login from './components/Login'
+import ToneLog from './components/ToneLog'
+import Admin from './components/admin/Admin'
 
 const App = () => {
   const [user, setUser] = useState(Cookies.get('sessionId'))
+  const [isAdmin, setIsAdmin] = useState(false)
+
+  useEffect(() => {
+    if (!user) return null
+    const token = jwt.decode(user)
+    setIsAdmin(token.roles.includes('admin'))
+  }, [user])
 
   const handleSetUser = (val) => {
     if (val) {
-      Cookies.set('sessionId', val)
       setUser(val)
     }
   }
@@ -38,15 +48,27 @@ const App = () => {
         <Container>
           <Navbar.Brand>The Tone Dropper</Navbar.Brand>
           <Navbar.Collapse className='justify-content-end'>
-            <Button variant='danger' onClick={handleSignOut}>Sign out</Button>
+            <Link to='/'>
+              <Button variant='primary' style={{ marginLeft: '.3em' }}>Home</Button>
+            </Link>
+            <Link to='/toneLog'>
+              <Button variant='primary' style={{ marginLeft: '.3em' }}>Tone Log</Button>
+            </Link>
+            <Button variant='danger' style={{ marginLeft: '.3em' }} onClick={handleSignOut}>Sign out</Button>
+            {isAdmin &&
+              <Link to='/admin'>
+                <Button variant='secondary' style={{ marginLeft: '.3em' }}>Admin</Button>
+              </Link>
+              // eslint-disable-next-line
+            } 
           </Navbar.Collapse>
         </Container>
       </Navbar>
 
       <Switch>
-        <Route path='/' exact>
-          <ToneQueue userid={user} />
-        </Route>
+        <Route path='/' component={ToneQueue} exact />
+        <Route path='/toneLog' component={ToneLog} />
+        <Route path='/admin' component={Admin} />
       </Switch>
     </Router>
   )

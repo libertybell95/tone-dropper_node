@@ -10,12 +10,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "config": "^3.3.6",
     "cookie-parser": "^1.4.5",
     "joi": "^17.4.2",
     "jsonwebtoken": "^8.5.1",
+    "knex": "^0.21.21",
     "morgan": "^1.10.0",
+    "objection": "^2.2.15",
+    "sqlite3": "^5.0.2",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

@@ -4,18 +4,16 @@ import {
   Button,
   Container
 } from 'react-bootstrap'
-import axios from 'axios'
+import { authenticate } from '../services/auth'
 
 const Login = ({ setUser }) => {
   const [username, setUsername] = useState()
   const [password, setPassword] = useState()
 
   const handleSubmit = () => {
-    axios
-      .post('/auth/login', { username, password })
-      .then(res => {
-        if (res.status === 200) setUser(res.data)
-      })
+    authenticate(username, password).then(res => {
+      if (res.status === 200) setUser(res.data)
+    })
   }
 
   return (

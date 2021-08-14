@@ -7,3 +7,7 @@ export function getTones () {
 export function dropTones (data) {
   return Axios.post('/tones', data)
 }
+
+export function toneLog () {
+  return Axios.get('/tones/log')
+}

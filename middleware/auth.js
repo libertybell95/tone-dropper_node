@@ -11,7 +11,9 @@ module.exports = function (req, res, next) {
   const sessionId = req.cookies.sessionId
   if (!sessionId) return res.status(401).send('No sessionId')
 
-  if (jwt.verify(sessionId, config.get('secret'))) {
+  const verify = jwt.verify(sessionId, config.get('secret'))
+  if (verify) {
+    req.username = verify.username
     next()
   } else {
     return res.status(401).send('Invalid sessionId')

@@ -9,6 +9,8 @@ const Auth = require('./routes/Auth')
 const Tones = require('./routes/Tones')
 const Users = require('./routes/Users')
 
+require('./models/init')
+
 const app = express()
 const PORT = config.get('port') || 8080
 
