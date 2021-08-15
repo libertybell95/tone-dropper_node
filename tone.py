@@ -69,7 +69,7 @@ voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[0].id)
 
 rate = engine.getProperty('rate')
-engine.setProperty('rate', rate-25)
+engine.setProperty('rate', rate-18)
 
 with open("config/default.json") as file:
   config = json.load(file)
