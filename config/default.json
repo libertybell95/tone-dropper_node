@@ -1,6 +1,7 @@
 {
-  "port": 8000,
+  "port": 80,
   "secret": "DropTones?DropDeezNuts!",
+  "dbFile": "main.db",
   "tones": [
     ["DA", 398.1],
     ["EA", 441.6],
