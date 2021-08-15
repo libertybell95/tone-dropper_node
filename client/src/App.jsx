@@ -2,20 +2,15 @@ import React, { useState, useEffect } from 'react'
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from 'react-router-dom'
-import {
-  Navbar,
-  Container,
-  Button
-} from 'react-bootstrap'
 import Cookies from 'js-cookie'
 import jwt from 'jsonwebtoken'
 import ToneQueue from './components/ToneQueue'
 import Login from './components/Login'
 import ToneLog from './components/ToneLog'
 import Admin from './components/admin/Admin'
+import NavBar from './components/NavBar'
 
 const App = () => {
   const [user, setUser] = useState(Cookies.get('sessionId'))
@@ -44,26 +39,7 @@ const App = () => {
 
   return (
     <Router>
-      <Navbar bg='light'>
-        <Container>
-          <Navbar.Brand>The Tone Dropper</Navbar.Brand>
-          <Navbar.Collapse className='justify-content-end'>
-            <Link to='/'>
-              <Button variant='primary' style={{ marginLeft: '.3em' }}>Home</Button>
-            </Link>
-            <Link to='/toneLog'>
-              <Button variant='primary' style={{ marginLeft: '.3em' }}>Tone Log</Button>
-            </Link>
-            <Button variant='danger' style={{ marginLeft: '.3em' }} onClick={handleSignOut}>Sign out</Button>
-            {isAdmin &&
-              <Link to='/admin'>
-                <Button variant='secondary' style={{ marginLeft: '.3em' }}>Admin</Button>
-              </Link>
-              // eslint-disable-next-line
-            } 
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+      <NavBar onSignOut={handleSignOut} isAdmin={isAdmin} />
 
       <Switch>
         <Route path='/' component={ToneQueue} exact />
