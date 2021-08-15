@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "setup": "npm install --prefix client/; npm run build --prefix client/"
   },
   "keywords": [],
   "author": "",
