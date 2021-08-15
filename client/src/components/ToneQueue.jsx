@@ -6,6 +6,8 @@ import {
   Button,
   FormControl
 } from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { v4 } from 'uuid'
 import Tone from './Tone'
 import { getTones, dropTones } from '../services/tones'
@@ -14,6 +16,7 @@ const ToneQueue = () => {
   const [availableTones, setAvailableTones] = useState([['', 0]])
   const [tones, setTones] = useState([['', 0, v4()]])
   const [message, setMessage] = useState('')
+  const [submitButton, setSubmitButton] = useState('Send It!')
 
   useEffect(() => {
     getTones().then(res => {
@@ -50,19 +53,30 @@ const ToneQueue = () => {
     setMessage(e.target.value)
   }
 
-  const sendTones = () => {
+  /**
+   * Send the tones!
+   * @param {import('react').MouseEvent} e
+   */
+  const sendTones = e => {
+    const originalValue = submitButton
+    e.target.disabled = true
+    setSubmitButton(<FontAwesomeIcon icon={faSpinner} spin />)
+
     const data = {
       tones: tones.map(t => [t[0], t[1]]),
       message: message.trim()
     }
 
     console.log(data)
-    dropTones(data)
+    dropTones(data).then(res => {
+      e.target.disabled = false
+      setSubmitButton(originalValue)
+    })
   }
 
   return (
     <>
-      <Container>
+      <Container style={{ width: '25em' }}>
         <Row>
           <Col>
             <table style={{ marginBottom: '.5em' }}>
@@ -90,7 +104,13 @@ const ToneQueue = () => {
         </Row>
         <Row>
           <Col>
-            <Button variant='primary' onClick={addTone}>New Tone</Button>
+            <Button
+              variant='primary'
+              onClick={addTone}
+              style={{ width: '7rem' }}
+            >
+              New Tone
+            </Button>
           </Col>
         </Row>
         <Row style={{ marginTop: '1em', marginBottom: '1em' }}>
@@ -106,7 +126,13 @@ const ToneQueue = () => {
         </Row>
         <Row>
           <Col>
-            <Button variant='primary' onClick={sendTones}>Send it!</Button>
+            <Button
+              variant='primary'
+              onClick={sendTones}
+              style={{ width: '7rem' }}
+            >
+              {submitButton}
+            </Button>
           </Col>
         </Row>
       </Container>
