@@ -16,7 +16,7 @@ class ToneLog extends Model {
  */
 async function ToneLogSchema (knex) {
   if (await knex.schema.hasTable('tonelog')) {
-    return
+    return null
   }
 
   await knex.schema.createTable('tonelog', table => {
