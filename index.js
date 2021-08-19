@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const morgan = require('morgan')
+// const helmet = require('helmet')
 const path = require('path')
 const config = require('config')
 
@@ -17,6 +18,7 @@ const PORT = config.get('port') || 8080
 app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(morgan('tiny'))
+// app.use(helmet())
 
 app.use('/auth', Auth)
 app.use('/tones', Tones)
