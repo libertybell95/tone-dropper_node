@@ -28,7 +28,7 @@ router.post('/login', async (req, res) => {
   }
 
   const key = jwt.sign(data, config.get('secret'))
-  res.cookie('sessionId', key)
+  res.cookie('sessionId', key, { maxAge: 30 * 60 * 1000 })
   res.send(key)
 })
 
