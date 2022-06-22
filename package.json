@@ -21,7 +21,7 @@
     "knex": "^0.21.21",
     "morgan": "^1.10.0",
     "objection": "^2.2.15",
-    "sqlite3": "^5.0.2",
+    "sqlite3": "^5.0.3",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
