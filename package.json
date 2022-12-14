@@ -26,6 +26,6 @@
   },
   "devDependencies": {
     "@types/joi": "^17.2.3",
-    "express": "^4.17.1"
+    "express": "^4.17.3"
   }
 }
